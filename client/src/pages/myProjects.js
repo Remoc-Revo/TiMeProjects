@@ -29,7 +29,7 @@ export default function MyProjects(){
                                 //document.write("<br>",project[0].projectName);
 
                                 projectsMarkup_buffer.push(
-                                    <li class="list-group-item">                                                                     
+                                    <li class="">                                                                     
                                                   
                                             <Link class="btn btn-link" to='/myProjects/dashboard' onClick={()=>localStorage.setItem('projectId',project[0].projectId)}>
                                                     {project[0].projectName}
@@ -50,7 +50,7 @@ export default function MyProjects(){
                     }
                     
                 })
-            },[]);
+            },[navigate]);
     
 
             
@@ -63,9 +63,9 @@ export default function MyProjects(){
                     {/* <!--Sidebar--> */}
                     <td style={{width:"20%"}}>
                         <div>
-                            <button  type="button" className="btn btn-secondary" onclick="window.location.href='./createProject.ejs'">
+                            <a className="btn btn-secondary" href="/createProject">
                                     + New Project
-                                </button>
+                            </a>
                         </div>
                         
                     </td>
@@ -78,9 +78,9 @@ export default function MyProjects(){
 
                         </div> */}
                         <div>
-                            <ul className="list-group-light ">
+                            <ol className="">
                             {projectsMarkup}
-                            </ul>
+                            </ol>
                         </div>
                                 
                             

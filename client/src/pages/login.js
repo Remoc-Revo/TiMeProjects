@@ -1,12 +1,13 @@
 import React,{useState} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 axios.defaults.withCredentials=true;
 
 export default function LoginPage(){
     var [email,setEmail]=useState('');
     var [password,setPassword]=useState('');
     var [errorMessage,setErrorMessage]=useState('');
+    
 
     const navigate=useNavigate();
 
@@ -26,7 +27,7 @@ export default function LoginPage(){
                     //         'Authorization':`Bearer ${token}`
                     //     }
                     // })
-                    
+                    // document.write(response.status)
                 if(response.status===200){   
                     
                     navigate("/");
@@ -43,6 +44,7 @@ export default function LoginPage(){
         
     }
 
+   
     return(
         <div className="container col-md-6" style={{marginTop:"100px",border:"1px solid lightgrey"}}>
             <h1 style={{paddingLeft:"10%"}}>TiMe-Projects</h1>
@@ -70,7 +72,7 @@ export default function LoginPage(){
                     <input className="btn btn-success w-100 mt-3 col-md-6" type="submit" value="Login" style={{marginLeft:"0px"}}/>
                     <div className="d-flex ms-5">
                         Don't have account?
-                        <a href="./register.ejs" style={{paddingLeft:"0%"}}>Create Account</a>
+                        <a href="/register" style={{paddingLeft:"0%"}}>Create Account</a>
                     </div>
                 </div>
             </form>

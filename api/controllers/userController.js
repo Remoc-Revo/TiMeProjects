@@ -74,7 +74,9 @@ exports.register=async (req,res,next)=>{
                 pool.execute(`INSERT INTO USER(userId,userName,userEmail,phone,registrationDatetime,role,password)\
                                                     VALUES(null,'${userName}','${email}','${phone}',now(),'${role}','${hashedPassword}')`,
                             function(err,result){
-                                console.log(result.affectedRows);
+                                if(err){
+                                    throw(err);
+                                }
 
                                 if(result.affectedRows==1){
                                     pool.query(`SELECT * FROM USER WHERE userEmail='${email}'`,async (err,result)=>{
@@ -82,12 +84,24 @@ exports.register=async (req,res,next)=>{
 
                                         req.session.userID=result[0].userId;
                                         req.session.userName=result[0].userName;
-                                        return res.status(200);
-                                    });
-                                    
-                                }
-                            }
-                            );
+                                        
+                                        const token=jwt.sign({userId:req.session.userId,userName:req.session.userName},"secret",{expiresIn:'1h'});
+                                        console.log("seeeeesssion token:  ",token);
+
+                                                    
+                            
+                                        // return res.status(200).json({userToken:token});
+                                        return res.status(200).cookie('token',token,
+                                                        {
+                                                        httpOnly:true,                     
+                                                        secure:false,
+                                                        maxAge:24*3600*1000
+                                                        }).json({});
+                                                            });
+                                                            
+                                                        }
+                                                    }
+                                                    );
 
                 
             }

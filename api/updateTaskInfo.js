@@ -43,6 +43,6 @@ exports.updateTaskInfo=(req,res)=>{
                         });
         }
 
-       return res.redirect('/overall_progress.ejs');
+       return res.status(200);
     }
 }

@@ -25,7 +25,7 @@ exports.addMember=(req,res,next)=>{
                     }
                     if(result.length!=0){
                         console.log("the famaous resuuult:",result);
-                        return res.redirect('/members.ejs');
+                        return res.status(400);
                         
                     }
                     else{
@@ -37,7 +37,7 @@ exports.addMember=(req,res,next)=>{
                                     if(err){
                                         throw(err);
                                     }
-                                    return res.redirect('/members.ejs');
+                                    return res.status(200);
                                 }
                             );
                     }
@@ -69,7 +69,7 @@ exports.removeMember=function removeMember(req,res,next){
                 if(result.length==1){
                     console.log("ayeeee eee, removed member, now delete this console.log codeeeeeee!!");
 
-                    return res.render('pages/members.ejs');
+                    return res.status(200).json({});
                 }
             })
 }

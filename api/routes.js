@@ -66,9 +66,9 @@ const ifNotLoggedIn=(req,res,next)=>{
 
 router.post('/register',
             ifLoggedIn,
-            [body('phone','phone must have at least 10 digits')
+            [body('phone','phone must have 10-12 digits')
                 .notEmpty()
-                .isLength({min:10}).
+                .isLength({min:10,max:12}).
                 trim(),
               body('email','invalid email')
                 .notEmpty()
@@ -114,7 +114,7 @@ router.get('/welcome.ejs',
 })
 
 router.get('/myProjects',
-    // ifNotLoggedIn,
+    ifNotLoggedIn,
    getMyProjects
 
 );
@@ -164,7 +164,7 @@ router.get('/addRequirement.ejs',
     res.render('pages/addRequirement');
 })
 
-router.get('/members.ejs',
+router.get('/members',
     ifNotLoggedIn,
     getProjectMembers
 );
@@ -188,10 +188,11 @@ router.post('/createProject',
         createProject);
 
 router.post('/logout',(req,res,next)=>{
+    console.log("logging ouuuut")
     req.session.destroy((err)=>{
         next(err);
     });
-    res.redirect('/login.ejs');
+    return res.clearCookie('token');
 });
 
 router.post('/addMember',

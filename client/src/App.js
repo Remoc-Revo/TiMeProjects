@@ -13,7 +13,7 @@ import Schedule from "./pages/schedule";
 import Members from "./pages/members";
 import Login from "./pages/login";
 import Register from './pages/register';
-
+import CreateProject from "./pages/createProject";
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -36,6 +36,7 @@ function App(){
         <Route  path='/myProjects/this/members' element={<Members/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
+        <Route path='/createProject' element={<CreateProject/>}/>
       </Routes>
     </Router>
   )

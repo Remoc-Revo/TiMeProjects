@@ -14,8 +14,8 @@ const pool=require('./dbConnection');
             }
             req.session.projectMembers=members;
             // console.log("membeeers",members);
-            if(req.originalUrl=='/members.ejs'){
-                    return res.render('pages/members',
+            if(req.originalUrl=='/members'){
+                    return res.json(
                     {
                         allEmails:await allEmails(),
                         members:req.session.projectMembers,
