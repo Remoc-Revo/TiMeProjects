@@ -19,7 +19,7 @@ exports.register=async (req,res,next)=>{
 
     if(!errors.isEmpty()){
         console.log('errooooooors:',errors.array()[0].msg);
-        return res.json(//'pages/register',
+        return res.json(
             {error:errors.array()[0].msg,
             enteredName:userName,
             enteredPassword1:password1,

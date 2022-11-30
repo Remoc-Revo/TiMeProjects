@@ -5,7 +5,7 @@ const pool=require('./dbConnection');
     async function getMyProjects(req,res,next){
         var myProjectsBuffer=[];
 
-            pool.query(`SELECT projectId FROM PROJECT_MEMBER WHERE userId=30`,//${req.session.userId}`,
+            pool.query(`SELECT projectId FROM PROJECT_MEMBER WHERE userId=${req.session.userId}`,
                 async (err,result)=>{
                     if(err){
                         throw(err);

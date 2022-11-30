@@ -39,6 +39,8 @@ exports.addRequirement=(req,res,next)=>{
 exports.editRequirement=(req,res)=>{
     const {body}=req;
 
+    console.log("the body:tt::",body);
+    
     pool.query(`UPDATE REQUIREMENT SET requirementTerm='${body.requirement_term}',\
                     requirementDescription='${body.requirement_description}' WHERE requirementId=${body.requirement_id}`,
                     (err,result)=>{

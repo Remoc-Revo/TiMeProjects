@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import MainNav from "../navs/mainNav";
@@ -12,11 +12,14 @@ export default function CreateProject(){
     var [endDate,set_endDate]=useState();
     var [error,set_error]=useState();
 
-    async function createProject(){
+    function CreateProject(){
         // document.write(projectName,"<br>",projectDescription,"<br>",startDate,"<br>",endDate);
+        // set_error("TODF")
 
-        try{
-            await axios.post('http://localhost:3001/createProject',
+        useEffect(()=>{
+                    document.write(projectName,"<br>",projectDescription,"<br>",startDate,"<br>",endDate);
+
+            axios.post('http://localhost:3001/createProject',
               {
                 projectDescription:projectDescription,
                 projectName:projectName,
@@ -35,13 +38,18 @@ export default function CreateProject(){
                 //     navigate('/myProjects');
                 // }
               })
-        }
-        catch(err){
-        document.write(err.response.status);
-        if(err.response.status===401){
-            navigate('/login');
-        }
-        }
+        
+            .catch((err)=>{
+                if(err.response.status===400){
+                    // document.write(err.response.data.error);
+                    // set_error(err.response.data.error);
+                    document.write(new Date().getTime());
+                }
+                if(err.response.status===401){
+                    navigate('/login');
+                }
+            });
+        },[]);
     }
 
     return <div className="container">
@@ -57,7 +65,7 @@ export default function CreateProject(){
                     <td >
                         <div className="container">
                             <h2>Create a new project</h2>
-                            <form onSubmit={createProject} >
+                            <form onSubmit={CreateProject} >
                                 <div className="d-flex mb-4" >
                                     <p className="col-md-4" >Project Name</p>
                                     <input type="text" name="projectName" className="col-md-5" value={projectName} required onChange={(e)=>set_projectName(e.target.value)}/>

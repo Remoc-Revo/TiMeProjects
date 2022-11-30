@@ -35,10 +35,10 @@ export default function OverallProgress(){
 
     function toDateInputFormat(dateToConvert){                
         var date=new Date(dateToConvert).getDate();
-        date=date>=10?date:"0"+date;
+        date=date>=9?date:"0"+date;
 
         var month=new Date(dateToConvert).getMonth();
-        month=month>=10?month+1:"0"+(month+1);
+        month=month>=9?month+1:"0"+(month+1);
 
         var year=new Date(dateToConvert).getFullYear();
         var dateString=year+"-"+month+"-"+date;    
@@ -159,10 +159,20 @@ export default function OverallProgress(){
                                                                                                         
                                                         <button className="btn btn-link btn-sm btn-rounded" 
                                                                 onClick={()=>{
+                                                                    // document.write("task.requirementHandlerDetails.userId::",task.requirementHandlerDetails,
+                                                                    //                 "<br>task.endDate::",task.endDate,"<br>task.startDate::",task.startDate)
+
                                                                     set_editTask_show(true);
-                                                                    set_handler_on_edit(task.requirementHandlerDetails.userId);
-                                                                    set_end_date_on_edit(toDateInputFormat(task.endDate));
-                                                                    set_start_date_on_edit(toDateInputFormat(task.startDate));                                                                    
+                                                                    set_handler_on_edit((typeof task.requirementHandlerDetails!=='undefined')?task.requirementHandlerDetails.userId:null);
+                                                                    
+                                                                    if(task.endDate!==null){
+                                                                        set_end_date_on_edit(toDateInputFormat(task.endDate));
+                                                                    }
+                                                                    
+                                                                    if(task.startDate!==null){
+                                                                        set_start_date_on_edit(toDateInputFormat(task.startDate));   
+                                                                    }
+
                                                                     set_taskId_on_edit(task.taskId);
 
                                                                 }}>
@@ -201,6 +211,7 @@ export default function OverallProgress(){
                                 
                                 
                                     <select id="handler_on_edit" name="handler_on_edit" onChange={(event)=>{set_handler_on_edit(event.target.value)}}>
+                                        <option>Select handler's email</option>
                                         {projectMembers.map(member=>{
                                             if(member.userId===handler_on_edit){
                                                 return <option value={member.userId} selected>{member.userEmail}</option>

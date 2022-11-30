@@ -3,13 +3,15 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
 export default function Register(){
-    const [name,setName]=useState('');
-    const [email,setEmail]=useState('');
-    const [phone,setPhone]=useState('');
-    const [role,setRole]=useState('');
-    const [password1,setPassword1]=useState('');
-    const [password2,setPassword2]=useState('');
-    const [errorMessage,setErrorMessage]=useState('');
+    var [name,setName]=useState('');
+    var [email,setEmail]=useState('');
+    var [phone,setPhone]=useState('');
+    var [role,setRole]=useState('');
+    var [password1,setPassword1]=useState('');
+    var [password2,setPassword2]=useState('');
+    var [errorMessage,setErrorMessage]=useState('');
+
+    var [et,set_et]=useState();
 
     const navigate=useNavigate();
 
@@ -29,15 +31,34 @@ export default function Register(){
                 }
                 ).then((response)=>{
                         var responseData=response.data;
-                        setErrorMessage(responseData.error);
-                        
+                        // setErrorMessage(responseData.error);
+                        setErrorMessage("todaf");
+                        set_et("trtr")
+                        document.write(et);
+                        // //setName(responseData.enteredName);
+                        // setPassword1(responseData.enteredPassword1);
+                        // setPassword2(responseData.enteredPassword2);
+                        // setEmail(responseData.enteredEmail);
+                        // setPhone(responseData.enteredPhone);
+                        // setRole(responseData.enteredRole);
+
                         if(response.status===200){
                             navigate("/");
                         }
+                })
+                .then(()=>{
+                    // document.write("sssss::",errorMessage)
+
                 });
         }
         catch(err){
-            document.write("the error:   ",err);
+            document.write("the error:   ",err.response.status);
+
+            if(err.response.status===400){
+
+                
+                
+            }
         }
     }
 
@@ -98,7 +119,7 @@ export default function Register(){
                 
                 <div className="d-flex">
                     <input type="submit" value="Register"/>
-                    <a href="./login.ejs" style={{paddingLeft:"60%"}}>Have an account?Login</a>
+                    <a href="./login" style={{paddingLeft:"60%"}}>Have an account?Login</a>
                 </div>
             </form>
         </div>

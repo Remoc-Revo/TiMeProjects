@@ -42,10 +42,9 @@ export default function Members(){
 
     function removeMember(userId){
         axios.post("http://localhost:3001/removeMember",
-                   {userId:userId,
+                   {id:userId,
               })
               .then(()=>{
-                
               })
               .catch((err)=>{
                 if(err.response.status===401){

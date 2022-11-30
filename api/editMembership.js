@@ -66,10 +66,11 @@ exports.removeMember=function removeMember(req,res,next){
                 if(err){
                     throw(err);
                 }
-                if(result.length==1){
-                    console.log("ayeeee eee, removed member, now delete this console.log codeeeeeee!!");
+                console.log('the res len::',result.affectedRows)
+                if(result.affectedRows==1){
+                    console.log("ayeeee eee, removed member,now delete this console.log codeeeeeee!!..");
 
-                    return res.status(200).json({});
+                    return res.status(200);
                 }
             })
 }
