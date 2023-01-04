@@ -12,14 +12,14 @@ export default function CreateProject(){
     var [endDate,set_endDate]=useState();
     var [error,set_error]=useState();
 
-    function CreateProject(){
+    async function createProject(e){
+        e.preventDefault();
+        set_error('');
         // document.write(projectName,"<br>",projectDescription,"<br>",startDate,"<br>",endDate);
         // set_error("TODF")
+        console.log("errror",error)
 
-        useEffect(()=>{
-                    document.write(projectName,"<br>",projectDescription,"<br>",startDate,"<br>",endDate);
-
-            axios.post('http://localhost:3001/createProject',
+            await axios.post('http://localhost:3001/createProject',
               {
                 projectDescription:projectDescription,
                 projectName:projectName,
@@ -27,6 +27,7 @@ export default function CreateProject(){
                 endDate:endDate
               })
               .then((response)=>{
+                
                 // document.write(response);
                 
                 // document.write(response.data.error)
@@ -34,82 +35,69 @@ export default function CreateProject(){
                 //     set_error(response.data.error);
                 // }
 
-                // if(response.status===200){
-                //     navigate('/myProjects');
-                // }
+                if(response.status===200){
+                    navigate('/myProjects');
+                }
               })
         
             .catch((err)=>{
                 if(err.response.status===400){
                     // document.write(err.response.data.error);
-                    // set_error(err.response.data.error);
-                    document.write(new Date().getTime());
+                    set_error(err.response.data.error);
+                    // document.write(new Date().getTime());
+                    console.log("the error status ::",err)
                 }
                 if(err.response.status===401){
                     navigate('/login');
                 }
             });
-        },[]);
+        
     }
 
     return <div className="container">
             <MainNav/>
-            <table className="table table-bordered">
-                <tr>
-                    {/* <!--Sidebar--> */}
-                    <td style={{width:'15%'}}>
-                            
-                    </td>
-
-                    {/* <!--main content--> */}
-                    <td >
-                        <div className="container">
-                            <h2>Create a new project</h2>
-                            <form onSubmit={CreateProject} >
-                                <div className="d-flex mb-4" >
-                                    <p className="col-md-4" >Project Name</p>
-                                    <input type="text" name="projectName" className="col-md-5" value={projectName} required onChange={(e)=>set_projectName(e.target.value)}/>
-                                </div>
-
-                                <div className="d-flex mb-4">
-                                    <p className="col-md-4">Project Description</p>
-                                    <textarea name="projectDescription" rows="10" value={projectDescription} className="col-md-5" required 
-                                              onChange={(e)=>set_projectDescription(e.target.value)}>
-                                    </textarea>
-                                </div>
-
-                                <div className="d-flex mb-4">
-                                    <p className="col-md-4">Start Date</p>
-                                    <input type="date" name="startDate" value={startDate} className="col-md-5" required
-                                            onChange={(e)=>set_startDate(e.target.value)}/>
-                                </div>
-
-                                <div className="d-flex mb-4" >
-                                    <p className="col-md-4">End Date</p>
-                                    <input type="date" name="endDate" className="col-md-5" value={endDate} required
-                                           onChange={(e)=>set_endDate(e.target.value)}/>
-                                </div>
-                                
-                               
-                                <div>
-                                    <p style={{color:"red"}}>{error}</p>
-                                </div>
-
-                                <div className="d-flex justify-content-between mt-4">
-                                    <input type="submit" value="Create Project" />
-                                    <a className="btn btn-danger " href="/myProjects">
-                                        Cancel
-                                    </a>
-                                </div>
-                            </form>
+            
+                <div className="container">
+                    <h2>Create a new project</h2>
+                    <form onSubmit={createProject} >
+                        <div className="d-flex mb-4" >
+                            <p className="col-md-4" >Project Name</p>
+                            <input type="text" name="projectName" className="col-md-5" value={projectName} required onChange={(e)=>set_projectName(e.target.value)}/>
                         </div>
-                    </td> 
-    
-                    <td style={{width:'15%'}}>
-                    </td>
-                </tr>
-            </table>
 
+                        <div className="d-flex mb-4">
+                            <p className="col-md-4">Project Description</p>
+                            <textarea name="projectDescription" rows="10" value={projectDescription} className="col-md-5" required 
+                                        onChange={(e)=>set_projectDescription(e.target.value)}>
+                            </textarea>
+                        </div>
+
+                        <div className="d-flex mb-4">
+                            <p className="col-md-4">Start Date</p>
+                            <input type="date" name="startDate" value={startDate} className="col-md-5" required
+                                    onChange={(e)=>set_startDate(e.target.value)}/>
+                        </div>
+
+                        <div className="d-flex mb-4" >
+                            <p className="col-md-4">End Date</p>
+                            <input type="date" name="endDate" className="col-md-5" value={endDate} required
+                                    onChange={(e)=>set_endDate(e.target.value)}/>
+                        </div>
+                        
+                        
+                        <div>
+                            <p style={{color:"red"}}>{error}</p>
+                        </div>
+
+                        <div className="d-flex justify-content-between mt-4">
+                            <input type="submit" value="Create Project" />
+                            <a className="btn btn-danger " href="/myProjects">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                    
 
 
 

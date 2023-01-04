@@ -45,6 +45,8 @@ export default function Members(){
                    {id:userId,
               })
               .then(()=>{
+                //replace this with neater refresh code
+                navigate("/myProjects/this/members")
               })
               .catch((err)=>{
                 if(err.response.status===401){
@@ -57,6 +59,9 @@ export default function Members(){
         axios.post('http://localhost:3001/addMember',
               {newMember:newMember}
               )
+              .then(()=>{
+
+              })
              .catch((err)=>{
                 if(err.response.status===401){
                     navigate('/login');

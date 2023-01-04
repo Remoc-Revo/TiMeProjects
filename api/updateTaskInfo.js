@@ -32,7 +32,7 @@ exports.updateTaskInfo=(req,res)=>{
                         });
         }
 
-        if(body.end_date_on_edit!=''&&typeof body.start_date_on_edit!='undefined'){
+        if(body.end_date_on_edit!=''&&typeof body.end_date_on_edit!='undefined'){
             console.log("thaaaa baaaddddyyy",body.end_date_on_edit);
             pool.query(`UPDATE REQUIREMENT SET endDate='${body.end_date_on_edit}' WHERE requirementId=${body.taskId}`,
                         (err,result)=>{

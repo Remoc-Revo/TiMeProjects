@@ -31,11 +31,7 @@ exports.createProject=async(req,res,next)=>{
         if(result.length!=0){
             console.log("the project name in use, length is::",result.length);
             return res.status(400).json({
-                error:'project name unavailable',
-                projectName:body.projectName,
-                projectDescription:body.projectDescription,
-                startDate:body.startDate,
-                endDate:body.endDate
+                error:'project name unavailable'
                 });
         }
         else{
@@ -60,7 +56,7 @@ exports.createProject=async(req,res,next)=>{
                                         }
                                     });
 
-                            return res.status(200);
+                            return res.status(200).json({});
                         });
                         
                     }
